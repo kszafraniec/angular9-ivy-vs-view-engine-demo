@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Injector, ɵrenderComponent } from '@angular/core';
 import { LoggerService } from './services/logger.service';
 
 @Component({
@@ -10,7 +10,10 @@ export class AppComponent {
   pizzaCount = 0;
   eatingStatus = '';
 
-  constructor(private loggerService: LoggerService) {}
+  constructor(
+    private loggerService: LoggerService,
+    private injector: Injector
+  ) {}
 
   addPizza() {
     this.pizzaCount = this.pizzaCount + 1;
@@ -41,5 +44,16 @@ export class AppComponent {
 
       this.loggerService.log('All pizzas eaten!');
     }, 2000);
+  }
+
+  loadLazyComponent() {
+    import('./lazy-loaded/lazy-loaded.component').then(
+      ({ LazyLoadedComponent }) => {
+        ɵrenderComponent(LazyLoadedComponent, {
+          host: 'lazy-loaded-component-placeholder',
+          injector: this.injector
+        });
+      }
+    );
   }
 }

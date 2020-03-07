@@ -11,4 +11,11 @@ button {
 
 .eat {
   margin-top: 50px;
+  margin-bottom: 200px;
+}
+
+lazy-loaded-component-placeholder {
+  background: #ddd;
+  display: block;
+  width: 300px;
 }
